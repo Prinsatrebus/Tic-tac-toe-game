@@ -1,4 +1,5 @@
 # Game start function
+# I think it's synced with github repository 
 
 def game_start():
 
