@@ -53,8 +53,11 @@ def game_setup():
     
     while Player1 != 'X' and Player1 != 'O':
         Player1 = input("Player 1: Would you like to be X or O?: ")
+        Player1 = Player1.upper()
         if Player1 != 'X' and Player1 != 'O':
+            print('\n')
             print("Please type X or O")
+            print('\n')
         else:
             if Player1 == 'X':
                 Player2 = 'O'
@@ -66,6 +69,7 @@ def game_setup():
             print(f'Player 1 is {Player1}')
             print('\n')
             print(f'Player 2 is {Player2}')
+            print("\n")
 
 # Build out game board
 
@@ -82,13 +86,15 @@ def display_board():
     global row3
     global available_slots
 
+    print("\n")
     print(f' {row1[0]} | {row1[1]} | {row1[2]}')
     print('-----------')
     print(f' {row2[0]} | {row2[1]} | {row2[2]}')
     print('-----------')
     print(f' {row3[0]} | {row3[1]} | {row3[2]}')
+    print("\n")
 
-# Player turns - INCOMPLETE
+# Player turns 
 
 def game_turn():
     
@@ -111,12 +117,12 @@ def game_turn():
     else:
         player_turn = 'Player 2'
         player_marker = Player2
-    
+
     display_board()
 
     while slot_selection not in available_slots:
         slot_selection = int(input(f'{player_turn}, please select an available slot: '))
-        if slot_selection >  0 and slot_selection < 10:
+        if slot_selection in available_slots:
             if slot_selection == 1:
                 row3[0] = player_marker
                 available_slots.remove(1)
@@ -154,10 +160,12 @@ def game_turn():
                 available_slots.remove(9)
                 break
         else:
+            print('\n')
             print("That is not an available slot!")
             print('\n')
+            display_board()
+            print('\n')
     
-    display_board()
             
 # Check for win condition
 
@@ -197,14 +205,30 @@ def win_condition():
             win = True
             break
         elif row3[0] == row2[1] == row1[2]:
-            win == True
+            win = True
             break
+        elif len(available_slots) == 0:
+            print('\n')
+            print('Draw!!')
+            print('\n')
+            display_board()
+            print('\n')
+            print('GAME OVER')
+            print('\n')
+            quit()
         else:
             break
 
     if win == True:
-        print(f'{player_turn} is the winner!')
-        end()
+        print("\n")
+        print(f'{player_turn} is the winner!!!')
+        print('\n')
+        display_board()
+        print('\n')
+        print('GAME OVER')
+        print('\n')
+        quit()
     else:
         return 
 
+game_start()
